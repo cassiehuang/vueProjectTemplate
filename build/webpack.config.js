@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //生成html，并将最终生成的js，css等动态插入其中
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin'); //静态资源拷贝
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -12,7 +11,7 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : '#cheap-module-source-map',
   entry: {
-    app: path.resolve(__dirname, '../src/main.js'),
+    app: isProd ? path.resolve(__dirname, '../src/main.js') : ['webpack-hot-middleware/client?noInfo=true&reload=true', path.resolve(__dirname, '../src/main.js')],
   },
 
   output: {

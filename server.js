@@ -26,7 +26,7 @@ const registerApiRoute = () => {
   app.use(
     '/api/*',
     proxy({
-      target: 'http://localhost:3001/agents',
+      target: 'http://localhost:3001/',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     }),
@@ -34,12 +34,12 @@ const registerApiRoute = () => {
 };
 
 const registerDefaultMiddleware = () => {
-  app.use(favicon('./public/favicon.ico'));
+  app.use(favicon('./public/favicon.png'));
   app.use('/dist', serve('./dist/', true));
   app.use('/public', serve('./public/', true));
   app.get('*', (req, res, next) => {
     if (req.path === '/' || !/(dashboard|agent|my|help)/.test(req.path)) {
-      return res.redirect('/home');
+      return res.redirect('/agent');
     }
     next();
   });
