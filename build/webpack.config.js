@@ -59,10 +59,10 @@ module.exports = {
           {
             test: /App/,
             resourceQuery: /\?vue/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader'],
           },
           {
-            use: ['vue-style-loader', 'css-loader', 'less-loader'],
+            use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
           }
         ],
       },
