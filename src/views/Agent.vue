@@ -5,12 +5,12 @@
         <div class="box tc">
           <span class="white name">Building</span>
           <span class="white number">3</span>
-          <i class="icon-cog icon"></i>
+          <span class="icon setting"><i class="icon-cog"></i></span>
         </div>
         <div class="box tc">
           <span class="white name">Idle</span>
           <span class="white number">5</span>
-          <i class="icon-coffee icon"></i>
+          <span class="icon"><i class="icon-coffee"></i></span>
         </div>
         <div class="box grid">
           <p>ALL</p>
@@ -32,12 +32,14 @@
           <div class="col-item" :class="{ active: type === 1 }" @click="type = 1"><i class="icon-th-list fs-18"></i></div>
         </div>
       </section>
-      <section class="sec-3 mt-15" :class="{ colList: !type, rowList: type }">
-        <div class="item mt-15" v-for="(agent, idx) in agents" :key="idx">
-          <div class="box">
-            <img :src="`/public/os-icons/${agent.os}.png`" />
-          </div>
-        </div>
+      <section class="sec-3">
+        <agent-list class="wrapper mt-15"
+                    :class="{ colList: !type, rowList: type }"
+                    :agents="agents"
+                    @delResource="delResource"
+                    @addResource="addResource"
+                    :expended.sync="expended">
+        </agent-list>
       </section>
     </template>
     <template slot="aside-bottom">
@@ -55,31 +57,38 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import Layout from '@/viewComponents/Layout.vue';
+import AgentList from '@/viewComponents/agent/AgentList.vue';
 import Tabs from '@/components/Tabs.vue';
-import { getAgents } from '@/api/agent.js';
+import { getAgents, updateAgent } from '@/api/agent.js';
 
 @Component({
   components:{
+    AgentList,
     Layout,
     Tabs,
   },
-  watch: {
-    active (self, newVal) {
-      // self.tabs[newVal]();
-    }
-  }
 })
 export default class Agent extends Vue {
   tabs = [
-    { text: 'All', action: 'all', },
-    { text: 'Physical', action: 'physical', },
-    { text: 'Virtual', action: 'virtual', },
+    { text: 'All', value: 'all', },
+    { text: 'Physical', value: 'physical', },
+    { text: 'Virtual', value: 'virtual', },
   ];
   searchValue = '';
-  active = 0;
-  agents = [];
+  data = [];
 
+  /* tabs selected*/
+  active = 0;
+  /*agent-list type*/
   type = 1;
+  /* the agent id of add modal*/
+  expended = null;
+
+  get agents() {
+    return this.data.filter((value) => {
+      return this.tabs[this.active].value === value.type || this.tabs[this.active].value === 'all';
+    });
+  }
 
   mounted() {
     this.getAgents();
@@ -88,7 +97,7 @@ export default class Agent extends Vue {
   getAgents() {
     getAgents()
       .then(({ data }) => {
-        this.agents = data;
+        this.data = data;
       })
       .catch((err) => {
         console.log(err);
@@ -98,6 +107,29 @@ export default class Agent extends Vue {
   refresh() {
     this.getAgents();
   }
+
+  delResource(agent, index) {
+    agent.resources.splice(index, 1);
+    updateAgent(agent.id, {
+      ...agent,
+      resources: agent.resources,
+    })
+    .then(() => {
+      this.refresh();
+    })
+  }
+
+  addResource(agent, values) {
+    updateAgent(agent.id, {
+      ...agent,
+      resources: [...agent.resources, ...values],
+    })
+    .then(() => {
+      this.refresh();
+      this.expended = null;
+    })
+  }
+
 }
 
 </script>
@@ -129,6 +161,14 @@ export default class Agent extends Vue {
         top: -14px;
         color: @color-white-3;
       }
+      .setting {
+        display: inline-block;
+        animation: gif 2s infinite linear;
+      }
+      @keyframes gif {
+        0% { transform: rotate(0deg)}
+        100% { transform: rotate(360deg)}
+      }
       &:nth-child(1) { background-color: @color-orange; }
       &:nth-child(2) { background-color: @color-green; }
       &:nth-child(3) {
@@ -139,6 +179,20 @@ export default class Agent extends Vue {
         .bold {
           .fs(20);
           font-weight: bold;
+        }
+      }
+      @media (max-width: 1024px) {
+        &:nth-child(3) {
+          background-color: @color-white-3;
+          grid-auto-flow: column;
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(3, 1fr);
+          align-items: center;
+          justify-items: center;
+          .bold {
+            .fs(20);
+            font-weight: bold;
+          }
         }
       }
     }
@@ -179,29 +233,30 @@ export default class Agent extends Vue {
       }
     }
   }
-  .sec-3.rowList {
-    .item {
-      min-height: 120px;
-      padding: 20px 20px;
-      box-sizing: border-box;
-    }
-  }
   .sec-3 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 210px;
+    bottom: 0;
+    overflow: hidden;
     .item {
       background: @color-white-3;
     }
-    overflow-y: scroll;
   }
   .aside-bottom {
     h1 {
       .fs(24);
       color: @color-grey-3;
-      padding: 0 0 15px 15px;
+      padding: 0 30px 15px 15px;
+      overflow: hidden;
     }
     .history {
       .fs(12);
       color: @color-grey-4;
-      padding: 0 30px 20px 28px;
+      padding: 0 0 20px 28px;
+      margin-right: 30px;
+      overflow: hidden;
       li {
         height: 30px;
         line-height: 30px;

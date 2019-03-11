@@ -22,7 +22,7 @@ export default class Header extends Vue { }
 <style lang="less" scoped>
 @import '~@/less/variable.less';
 .top-header {
-  width: 1200px;
+  max-width: 1200px;
   height: 80px;
   grid-template-columns: 1fr 80px;
   .logo {

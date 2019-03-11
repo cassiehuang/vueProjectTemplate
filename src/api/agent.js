@@ -7,13 +7,7 @@ const getAgent = (id) => {
   return axios.get(`/api/agents/${id}`);
 }
 const updateAgent =  (id, modifiedObj) => {
-  const data = {
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "body": modifiedObj
-  }
-  return axios.put(`/api/agents/${id}`, data);
+  return axios.put(`/api/agents/${id}`, modifiedObj);
 }
 
 export {

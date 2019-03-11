@@ -12,12 +12,14 @@
           <slot name="aside-bottom"></slot>
         </div>
       </aside>
-      <section>
+      <section class="content">
         <slot name="content"></slot>
       </section>
     </main>
     <footer class="footer">
-      <slot name="footer"></slot>
+      <slot name="footer">
+        <my-footer></my-footer>
+      </slot>
     </footer>
   </div>
 </template>
@@ -46,11 +48,12 @@ export default class Layout extends Vue { }
     background: #fff;
   }
   .main.grid {
-    width: 1200px;
+    max-width: 1200px;
     background: @color-white-1;
     height: calc(100% - 110px);
     grid-template-columns: 1fr 3fr;
     grid-column-gap: 30px;
+    overflow: hidden;
     .aside {
       background: @color-grey-1;
       position: relative;
@@ -59,6 +62,9 @@ export default class Layout extends Vue { }
         bottom: 0;
         width: 100%;
       }
+    }
+    .content {
+      position: relative;
     }
   }
   .footer {
