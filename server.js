@@ -37,12 +37,6 @@ const registerDefaultMiddleware = () => {
   app.use(favicon('./public/favicon.png'));
   app.use('/dist', serve('./dist/', true));
   app.use('/public', serve('./public/', true));
-  app.get('*', (req, res, next) => {
-    if (req.path === '/' || !/(dashboard|agent|my|help)/.test(req.path)) {
-      return res.redirect('/agent');
-    }
-    next();
-  });
 };
 
 async.waterfall(

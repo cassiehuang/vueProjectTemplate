@@ -4,10 +4,7 @@
       <div class="arrow-up"><i class="icon-angle-up"></i></div>
       <div class="box">
         <span class="close" @click="close"><i class="icon-close"></i></span>
-        <h4>Separate multiple resource name with commas</h4>
-        <input type="text" placeholder="input value" v-model="value"/>
-        <btn text="Add Resource" @click.native="add"></btn>
-        <btn text="Cancel" @click.native="close"></btn>
+        <slot name="modal-body"></slot>
       </div>
     </section>
     <div class="modal-mask" @click="close"></div>
@@ -17,24 +14,12 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Btn from '@/components/Botton.vue';
 
-@Component({
-  components: {
-    Btn,
-  }
-})
+@Component
 export default class AddModal extends Vue {
-  value = '';
 
   close() {
     this.$emit('close')
-  }
-
-  add() {
-    if (this.value === '') return;
-    const values = this.value.split(',');
-    this.$emit('addResource', values);
   }
 }
 </script>
@@ -47,7 +32,7 @@ export default class AddModal extends Vue {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 99;
+    z-index: 198;
   }
 }
 .agent-add-modal {
@@ -56,7 +41,7 @@ export default class AddModal extends Vue {
   left: 110px;
   width: 570px;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 199;
   .arrow-up {
     margin-left: 20px;
     display: inline-block;

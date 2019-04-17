@@ -25,23 +25,11 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/home',
     },
     {
-      path: '/dashboard',
-      component: () => import(/* webpackChunkName: "dashboard", webpackPrefetch: true*/ '@/views/Dashboard'),
-    },
-    {
-      path: '/agent',
-      component: () => import(/* webpackChunkName: "agent", webpackPrefetch: true*/ '@/views/Agent'),
-    },
-    {
-      path: '/my',
-      component: () => import(/* webpackChunkName: "my", webpackPrefetch: true*/ '@/views/My'),
-    },
-    {
-      path: '/help',
-      component: () => import(/* webpackChunkName: "help", webpackPrefetch: true*/ '@/views/Help'),
+      path: '/home',
+      component: () => import(/* webpackChunkName: "dashboard", webpackPrefetch: true*/ '@/views/Home'),
     },
   ]
 });

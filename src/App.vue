@@ -14,15 +14,9 @@ export default class App extends Vue { }
 
 <style lang="less">
 @import '~@/less/reset.less';
-@import '~@/less/common.less';
-@import '/public/font-icons/fonts.css';
 html, body {
   height: 100%;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
-}
-#app {
-  height: 100%;
-  color: @color-grey-1;
 }
 </style>
