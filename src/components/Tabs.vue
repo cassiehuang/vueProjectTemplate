@@ -19,11 +19,12 @@ import Component from 'vue-class-component';
 @Component({
   props: ['tabs', 'active'],
 })
-export default class Tabs extends Vue {
+class Tabs extends Vue {
   change(index) {
-    this.$emit('update:active', index)
+    this.$emit('update:active', index);
   }
 }
+export default Tabs;
 </script>
 <style lang="less">
 @import '~@/less/variable.less';
@@ -48,4 +49,3 @@ export default class Tabs extends Vue {
   }
 }
 </style>
-

@@ -7,7 +7,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class Layout extends Vue { }
+class Layout extends Vue { }
+export default Layout;
 </script>
 <style lang='less'>
 </style>

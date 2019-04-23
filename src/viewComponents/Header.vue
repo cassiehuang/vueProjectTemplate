@@ -7,7 +7,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class Header extends Vue { }
+class Header extends Vue { }
+export default Header;
 </script>
 <style lang="less">
 @import '~@/less/variable.less';

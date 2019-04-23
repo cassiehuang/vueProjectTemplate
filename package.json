@@ -9,7 +9,7 @@
     "api": "json-server --watch mock-server/db.json --port 3001",
     "build": "yarn run clean && cross-env NODE_ENV=production webpack --config build/webpack.config.js",
     "clean": "rimraf dist",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js,.vue src",
     "start": "concurrently \"npm run api\" \"npm run d\""
   },
   "author": "cassie",
@@ -47,6 +47,11 @@
     "babel-preset-env": "^1.4.0",
     "compression": "^1.7.3",
     "css-loader": "^1.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-vue": "^5.2.2",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.19.1",
@@ -67,13 +72,17 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "browser": true,
+      "es6": true
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "airbnb-base"
     ],
-    "rules": {},
+    "rules": {
+      "import/no-unresolved": 0
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

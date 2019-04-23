@@ -16,12 +16,12 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class AddModal extends Vue {
-
+class AddModal extends Vue {
   close() {
-    this.$emit('close')
+    this.$emit('close');
   }
 }
+export default AddModal;
 </script>
 <style lang="less">
 @import '~@/less/variable.less';
@@ -82,4 +82,3 @@ export default class AddModal extends Vue {
   }
 }
 </style>
-

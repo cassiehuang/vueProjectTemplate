@@ -11,18 +11,19 @@ import Component from 'vue-class-component';
 @Component({
   props: ['type', 'text'],
 })
-export default class Btn extends Vue {
+class Btn extends Vue {
   get icon() {
     switch (this.type) {
       case 'add':
         return 'icon-plus';
       case 'deny':
         return 'icon-deny';
-      case 'del':
+      default:
         return 'icon-trash';
     }
   }
 }
+export default Btn;
 </script>
 <style lang="less">
 @import '~@/less/variable.less';
@@ -47,4 +48,3 @@ export default class Btn extends Vue {
   }
 }
 </style>
-

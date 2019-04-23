@@ -1,11 +1,11 @@
 export default {
   data() {
     return {
-      status = {
+      status: {
         isFetching: false,
         isSending: false,
       },
-      isShowAlert = false,
+      isShowAlert: false,
       commonAlertOption: {
         title: '',
         meaasge: '',

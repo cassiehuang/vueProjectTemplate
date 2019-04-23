@@ -9,7 +9,13 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class App extends Vue { }
+class App extends Vue {
+  data = {
+    test: false,
+    test1: true,
+  }
+}
+export default App;
 </script>
 
 <style lang="less">

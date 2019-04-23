@@ -4,19 +4,19 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-    }
+    };
   },
 
   components: {},
 
   computed: {},
 
-  mounted() {},
+  mounted() { },
 
-  methods: {}
-}
+  methods: {},
+};
 
 </script>
 <style>
