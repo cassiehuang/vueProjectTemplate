@@ -1,4 +1,4 @@
-# start dev server and mock server
+# start dev server
 npm install
 
 npm start
